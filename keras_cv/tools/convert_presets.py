@@ -47,6 +47,13 @@ backbone_models = [
     keras_cv.models.EfficientNetV2SBackbone,
     keras_cv.models.EfficientNetV2MBackbone,
     keras_cv.models.EfficientNetV2LBackbone,
+    keras_cv.models.CSPDarkNetBackbone,
+    keras_cv.models.DenseNetBackbone,
+    keras_cv.src.models.EfficientNetV1Backbone,
+    keras_cv.src.models.EfficientNetLiteBackbone,
+    keras_cv.models.MiTBackbone,
+    keras_cv.models.ViTDetBackbone,
+    keras_cv.models.CenterPillarBackbone,
 ]
 for backbone_cls in backbone_models:
     for preset in backbone_cls.presets:
@@ -75,6 +82,8 @@ task_models = [
     keras_cv.models.YOLOV8Detector,
     keras_cv.models.ImageClassifier,
     keras_cv.models.DeepLabV3Plus,
+    keras_cv.models.SegFormer,
+    keras_cv.models.SegmentAnythingModel,
 ]
 for task_cls in task_models:
     # Remove backbone-specific keys
@@ -87,6 +96,9 @@ for task_cls in task_models:
             keras_cv.models.YOLOV8Detector,
         ]:
             kwargs.update({"bounding_box_format": "xywh"})
+            task = task_cls.from_preset(preset, **kwargs)
+        elif task_cls in [keras_cv.models.SegFormer]:
+            kwargs.update({"num_classes": 1})
             task = task_cls.from_preset(preset, **kwargs)
         else:
             task = task_cls.from_preset(preset)
