@@ -19,7 +19,7 @@ backbone_presets = {
         "metadata": {
             "description": "An example CenterPillar backbone for WOD.",
             "params": 1277680,
-            "official_name": "WaymoOpenDataset",
+            "official_name": "CenterPillar",
         },
         "class_name": (
             "keras_cv.models.object_detection_3d>CenterPillarBackbone"
